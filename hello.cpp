@@ -1,4 +1,7 @@
 #include <iostream>
-seidfsknc
-cnksdnkcnksd
-sdcksdkcvn
+using namespace std;
+int main()
+{
+    cout << "\nHello world\n" << endl;
+    return 0;
+}
