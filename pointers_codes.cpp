@@ -14,7 +14,6 @@
 //     cout << *p << endl;
 //     return 0;
 // }
-
 /// ==========================
 
 // #include <iostream>
@@ -30,11 +29,9 @@
 //     cout << *p1 << endl;
 //     return 0;
 // }
-
 ////=============================//
 
 ///=====================DYNAMIC MEMORY ALLOCATION==================//
-
 // #include <iostream>
 // using namespace std;
 // int main()
@@ -47,7 +44,6 @@
 //     delete[] ch;
 //     return 0;
 // }
-
 /// ==========================
 
 // #include <iostream>
@@ -65,9 +61,9 @@
 //     delete q;
 //     return 0;
 // }
+/// //===================================================//
 
 /// ====================MEMORY LEAKS=====================//
-
 // #include <iostream>
 // using namespace std;
 // int main()
@@ -85,11 +81,9 @@
 
 //     return 0;
 // }
-
 /////==============================================//
 
 // ////===========================(1)Functions pass by value==========================//
-
 // #include <iostream>
 // using namespace std;
 // void func(int p)
@@ -111,9 +105,9 @@
 //     cout << "Address of a = " << &a << endl;
 //     return 0;
 // }
+/// //===============================================//
 
 ///===========================(2)Functions [pass by reference with & operator]=========================//
-
 // #include <iostream>
 // using namespace std;
 // void func(int &p)
@@ -135,7 +129,6 @@
 //     cout << "Address of a = " << &a << endl;
 //     return 0;
 // }
-
 /////=================================================//
 
 //// //////=========Swaping two numbers and findinmg mean range normalization===========//
@@ -197,11 +190,10 @@
 //     normalization(&a, &b);
 //     return 0;
 // }
-
 //// //========================================================//
 
-/// //=================Finding total marls and percentage=====/
 
+/// //=====================Finding total marls and percentage======================//
 // #include<iostream>
 // using namespace std;
 // //=========FUNCTION OF TOTAL MARKS====//
@@ -239,5 +231,6 @@
 // 	cout<<"Percentage = "<<percentage<<"%%"<<endl;
 // 	return 0;
 // }
-
 /// ///==================================================//
+
+
