@@ -62,7 +62,6 @@
 // }
 ///===============================================//
 
-
 /// ====================MEMORY LEAKS=====================//
 // #include <iostream>
 // using namespace std;
@@ -82,7 +81,6 @@
 //     return 0;
 // }
 /////==============================================//
-
 
 // ////===========================(1)Functions pass by value==========================//
 // #include <iostream>
@@ -131,7 +129,6 @@
 //     return 0;
 // }
 /////======================================================//
-
 
 //// //////=========Swaping two numbers and findinmg mean range normalization===========//
 // #include <iostream>
@@ -194,7 +191,6 @@
 // }
 //// //========================================================//
 
-
 /// //=================Finding total marls and percentage=====/
 // #include<iostream>
 // using namespace std;
@@ -235,3 +231,143 @@
 // }
 /// ///==================================================//
 
+///========================Double POinters===================//
+// #include <iostream>
+// using namespace std;
+// void func(int *a, int *b, int **result)
+// {
+//     // just we want greater value
+//     if (*a > *b)
+//     {
+//         **result = *a;
+//     }
+//     else
+//     {
+//         **result = *b;
+//     }
+// }
+// int main()
+// {
+//     int temp = 0;
+//     int *ptr = &temp;
+//     int a = 10;
+//     int b = 20;
+//     cout << "Before function call temp value = " << temp << endl;
+//     cout << "Before function call *ptr value = " << *ptr << endl;
+//     func(&a, &b, &ptr);
+//     cout << "\n";
+//     cout << "After function call temp value = " << temp << endl;
+//     cout << "Before function call *ptr value = " << *ptr << endl;
+//     return 0;
+// }
+/////////===============================================//
+// #include <iostream>
+// using namespace std;
+// int* func(int length)
+// {
+//     // we want dynamic array
+//     int *ptr = new int[length];
+//     for (int i = 0; i < length; i++)
+//     {
+//         *(ptr+i) = (i + 1);
+//     }
+//     return ptr;
+// }
+// int main()
+// {
+//     int size;
+//     cout << "Enter Size = ";
+//     cin >> size;
+//     int *recieved_arr = func(size);
+//     for (int i = 0; i < size; i++)
+//     {
+//         cout << "value stored in other function = " << *(recieved_arr+1) << endl;
+//     }
+//     delete[] recieved_arr;
+//     recieved_arr = NULL;
+//     return 0;
+// }
+/////////===============================================//
+// #include <iostream>
+// using namespace std;
+// void print(int *arr, int m, int n)
+// {
+//     for (int i = 0; i < m; ++i)
+//     {
+//         for (int j = 0; j < n; ++j)
+//         {
+//             cout << *(arr + i * n + j) << " ";
+//         }
+//         cout << endl;
+//     }
+// }
+// int main()
+// {
+//     int arr[3][3] = {{1, 2, 3},{4, 5, 6},{7, 8, 9}};
+//     int m = 3, n = 3;
+//     print(&arr[0][0], m, n);
+
+//     return 0;
+// }
+////===================================================//
+// #include <iostream>
+// using namespace std;
+
+// void print(int arr[][3], int m)
+// {
+//     for (int i = 0; i < m; i++)
+//     {
+//         for (int j = 0; j < m; j++)
+//         {
+//             cout << arr[i][j] << " ";
+//         }
+//         cout << endl;
+//     }
+// }
+
+// int main()
+// {
+//     int arr[3][3] = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
+//     print(arr, 3);
+//     return 0;
+// }
+//////================================================//
+// #include <iostream>
+// using namespace std;
+
+// void print(int arr[3][3])
+// {
+//     for (int i = 0; i < 3; i++)
+//     {
+//         for (int j = 0; j < 3; j++)
+//         {
+//             cout << arr[i][j] << " ";
+//         }
+//         cout << endl;
+//     }
+// }
+
+// int main()
+// {
+//     int arr[3][3] = {{1, 2, 3},{4, 5, 6},{7, 8, 9}};
+//     print(arr);
+//     return 0;
+// }
+//////================================================//
+// #include <iostream>
+// using namespace std;
+
+// int main()
+// {
+//     int x = 10;
+//     char c = 'A';
+
+//     void *vp;
+//     vp = &x;
+//     cout << "Int : " << *(int *)vp << endl;
+//     vp = &c;
+//     cout << "Char " << *(char *)vp << endl;
+
+//     return 0;
+// }
+//////================================================//
