@@ -13,8 +13,135 @@
 //     cout << *p << endl;
 //     return 0;
 // }
-/// ==========================
+/// ============================================//
+// #include<iostream>
+// using namespace std;
+// int main()
+// {
+//     int a = 10;
+//     int *ptr;
+//     ptr = &a;
+//     cout << "Value of a is a:" <<a<< endl;
+//     cout << "Address of a is:" << &a << endl;
+//     cout << "Value of a is a:" << *ptr << endl;
+//     cout << "Address of a is:" << ptr << endl;
+//     return 0;
+// }
+/// ============================================//
+// #include <iostream>
+// using namespace std;
+// int main()
+// {
+//     int arr[5] = {1, 2, 3, 4, 5};
+//     int *p = arr;
+//     cout << "Initial Pointer p =" << p << endl;
+//     cout << "Value at p = " << *p << endl;
+//     //++operator
+//     p++;
+//     cout << "After p++:" << endl;
+//     cout << "p = " << p << endl;
+//     cout << "*p = " << *p << endl;
+//     //--operator
+//     p--;
+//     cout << "After p--:" << endl;
+//     cout << "p = " << p << endl;
+//     cout << "*p = " << *p << endl;
+//     // p+2
+//     p + 2;
+//     cout << "After p+2:" << endl;
+//     cout << "p = " << p << endl;
+//     cout << "*p = " << *p << endl;
+//     // p-1
+//     p - 1;
+//     cout << "After p-1:" << endl;
+//     cout << "p = " << p << endl;
+//     cout << "*p = " << *p << endl;
+// }
+/// ============================================//
+// #include<iostream>
+// using namespace std;
+// int main()
+// {
+//     int arr[5] = {1, 2, 3, 4, 5};
+//     int *ptr = arr;
+//     for (int i = 0; i < 5; i++)
+//     {
+//         cout << "*p = " << *ptr + i << endl;
+//     }
+//     return 0;
+// }
+/// ============================================//
+// #include <iostream>
+// using namespace std;
+// void swap(int *a, int *b)
+// {
+//     int temp = *a;
+//     *a = *b;
+//     *b = temp;
+// }
+// int main()
+// {
+//     int a = 10, b = 20;
+//     cout << "Values before swap:" << endl;
+//     cout << "a = " << a << endl;
+//     cout << "b = " << b << endl;
+//     swap(&a, &b);
+//     cout << "Values after swap:" << endl;
+//     cout << "a = " << a << endl;
+//     cout << "b = " << b << endl;
+// }
+/// ==============================================//
+// #include <iostream>
+// using namespace std;
+// int main()
+// {
+//     int arr[9] = {1, 2, 3, 4, 5, 6, 7, 8, 9};
+//     int *ptr = arr;
 
+//     cout << "Original Array:" << endl;
+//     for (int i = 0; i < 9; i++)
+//     {
+//         cout << *(ptr + i)<<" ";
+//     }
+//     cout << "\nReverse Array:" << endl;
+//     for (int i = 8; i >= 0; i--)
+//     {
+//         cout << *(ptr + i)<<" ";
+//     }
+//     return 0;
+// }
+/// ==============================================//
+// #include<iostream>
+// using namespace std;
+// int main()
+// {
+//     int arr[10] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+//     int *ptr = arr;
+//     int sum = 0;
+//     for (int i = 0; i < 10; i++)
+//     {
+//         sum = sum + *(ptr + i);
+//     }
+//     cout << "Sum of Array is: " << sum << endl;
+//     return 0;
+// }
+/// ==============================================//
+// #include <iostream>
+// using namespace std;
+// int func(int *a, int *b)
+// {
+//     int sum = *a + *b;
+//     return sum;
+// }
+// int main()
+// {
+//     int a = 10, b = 10;
+//     int sum;
+//     sum = func(&a, &b);
+//     cout << "Sum is:" << sum << endl;
+//     return 0;
+// }
+/// ==============================================//
 // #include <iostream>
 // using namespace std;
 // int main()
@@ -30,7 +157,7 @@
 // }
 ////=============================//
 
-///=====================DYNAMIC MEMORY ALLOCATION==================//
+///==========================================DYNAMIC MEMORY ALLOCATION=========================================//
 // #include <iostream>
 // using namespace std;
 // int main()
@@ -43,8 +170,8 @@
 //     delete[] ch;
 //     return 0;
 // }
-/// ==========================
 
+/// ==========================
 // #include <iostream>
 // using namespace std;
 // int main()
@@ -62,7 +189,7 @@
 // }
 ///===============================================//
 
-/// ====================MEMORY LEAKS=====================//
+/// ===================================================MEMORY LEAKS====================================================//
 // #include <iostream>
 // using namespace std;
 // int main()
@@ -82,7 +209,7 @@
 // }
 /////==============================================//
 
-// ////===========================(1)Functions pass by value==========================//
+// ////===========(1)Functions pass by value===========//
 // #include <iostream>
 // using namespace std;
 // void func(int p)
@@ -106,7 +233,7 @@
 // }
 /// //===============================================//
 
-///===========================(2)Functions [pass by reference with & operator]=========================//
+///==========(2)Functions [pass by reference with & operator]========//
 // #include <iostream>
 // using namespace std;
 // void func(int &p)
@@ -130,7 +257,7 @@
 // }
 /////======================================================//
 
-//// //////=========Swaping two numbers and findinmg mean range normalization===========//
+//////=========Swaping two numbers and findinmg mean range normalization===========//
 // #include <iostream>
 // using namespace std;
 
@@ -191,7 +318,7 @@
 // }
 //// //========================================================//
 
-/// //=================Finding total marls and percentage=====/
+/// //==============================================Finding total marls and percentage============================/
 // #include<iostream>
 // using namespace std;
 // //=========FUNCTION OF TOTAL MARKS====//
@@ -231,7 +358,7 @@
 // }
 /// ///==================================================//
 
-///========================Double POinters===================//
+///=====================================================Double POinters======================================================//
 // #include <iostream>
 // using namespace std;
 // void func(int *a, int *b, int **result)
@@ -371,3 +498,56 @@
 //     return 0;
 // }
 //////================================================//
+
+/////=================Find the Maximum and Minimum value in array using pointer===================//
+// #include<iostream>
+// #include<climits> //for checking maximum and minimum numbers without any errors
+// using namespace std;
+// int main()
+// {
+//     int arr[9] = {4, 7, 3, 9, 4, 7, 9, 4, 6};
+//     int *ptr = arr;
+//     int maximum = INT_MIN, minimum = INT_MAX;
+//     for (int i = 0; i < 9; i++)
+//     {
+//         if (*(ptr + i) > maximum)
+//         {
+//             maximum = *(ptr + i);
+//         }
+//         if (*(ptr + i)< minimum)
+//         {
+//             minimum = *(ptr + i);
+//         }
+//     }
+//     cout << "Maximum Value in Array is:" << maximum << endl;
+//     cout << "Minimum Value in Array is:" << minimum << endl;
+//     return 0;
+// }
+//////================================================//
+
+/////=================Find the Maximum and 2nd Maximum value in array using pointer===================//
+// #include <iostream>
+// #include <climits> //for checking maximum and minimum numbers without any errors
+// using namespace std;
+// int main()
+// {
+//     int arr[9] = {4, 7, 3, 9, 4, 7, 9, 4, 6};
+//     int *ptr = arr;
+//     int maximum = INT_MIN, second_max = 0;
+//     for (int i = 0; i < 9; i++)
+//     {
+//         if (*(ptr + i) > maximum)
+//         {
+//             second_max = maximum;
+//             maximum = *(ptr + i);
+//         }
+//         else
+//         if (*(ptr + i) > second_max && *(ptr+i) != maximum)
+//         {
+//             second_max = *(ptr + i);
+//         }
+//     }
+//     cout << "Maximum Value in Array is:" << maximum << endl;
+//     cout << "Second Maximum Value in Array is:" << second_max << endl;
+//     return 0;
+// }
