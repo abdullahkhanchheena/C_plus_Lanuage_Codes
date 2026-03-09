@@ -45,6 +45,7 @@ int main()
     int perimeter2 = tri2.perimeter();
     int area2 = tri2.area(perimeter2);
 
+    
     cout << "\nArea of triangle 2: " << area2 << endl;
     cout << "Perimeter of triangle 2: " << perimeter2 << endl;
 

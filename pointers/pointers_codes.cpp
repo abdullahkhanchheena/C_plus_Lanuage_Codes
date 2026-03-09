@@ -558,6 +558,7 @@ int main()
 {
     int arr[5];
     int *ptr = arr;
+    
     cout << "Enter Array\n";
     for (int i = 0; i < 5; i++)
     {

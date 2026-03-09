@@ -9,6 +9,7 @@ public:
 
     student(string s, int r, float g)
     {
+        
         name = s;
         roll = r;
         gpa = g;
