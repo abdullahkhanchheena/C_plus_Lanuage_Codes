@@ -2,6 +2,9 @@
 using namespace std;
 int main()
 {
-    cout << "Hello" << endl;
+    int *p = new int;
+    int *q = new int(25);
+    cout << *p << endl;
+    cout << *q << endl;
     return 0;
 }

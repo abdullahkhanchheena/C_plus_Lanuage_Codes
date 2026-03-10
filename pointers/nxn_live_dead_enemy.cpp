@@ -14,7 +14,9 @@ int main()
     {
         grid[i] = new int[n];
         for (int j = 0; j < n; j++)
+        {
             cin >> grid[i][j];
+        }
     }
 
     // INITIAL GRID
