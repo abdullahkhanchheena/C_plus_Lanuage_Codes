@@ -1,0 +1,1004 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>OOP C++ Practice Problems</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --bg: #0d0f14;
+    --card: #13161e;
+    --card2: #191d28;
+    --border: #252a38;
+    --accent: #00e5ff;
+    --accent2: #7c4dff;
+    --accent3: #ff6b6b;
+    --gold: #ffd54f;
+    --text: #e8eaf0;
+    --muted: #7a8099;
+    --easy: #4caf7d;
+    --medium: #ff9f43;
+    --hard: #ff6b6b;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    min-height: 100vh;
+    padding: 0 0 60px;
+    background-image:
+      radial-gradient(ellipse 80% 40% at 50% -10%, rgba(0,229,255,0.07) 0%, transparent 70%),
+      radial-gradient(ellipse 50% 30% at 90% 80%, rgba(124,77,255,0.06) 0%, transparent 60%);
+  }
+
+  /* ── HEADER ── */
+  header {
+    text-align: center;
+    padding: 56px 24px 40px;
+    border-bottom: 1px solid var(--border);
+    position: relative;
+    overflow: hidden;
+  }
+  header::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(0,229,255,0.04) 0%, transparent 100%);
+    pointer-events: none;
+  }
+  .eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 4px;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 14px;
+    opacity: .8;
+  }
+  header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 5vw, 3.6rem);
+    font-weight: 900;
+    line-height: 1.1;
+    background: linear-gradient(135deg, #fff 30%, var(--accent) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 12px;
+  }
+  header p {
+    color: var(--muted);
+    font-size: 15px;
+    max-width: 520px;
+    margin: 0 auto;
+    line-height: 1.7;
+  }
+
+  /* ── STATS BAR ── */
+  .stats {
+    display: flex;
+    justify-content: center;
+    gap: 32px;
+    flex-wrap: wrap;
+    padding: 24px 24px 0;
+    margin-top: 32px;
+  }
+  .stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+  }
+  .stat-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--accent);
+  }
+  .stat-label {
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  /* ── FILTER TABS ── */
+  .filter-bar {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    padding: 32px 24px 0;
+  }
+  .filter-btn {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    padding: 7px 18px;
+    border-radius: 99px;
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--muted);
+    cursor: pointer;
+    transition: all .2s;
+    letter-spacing: 1px;
+  }
+  .filter-btn:hover, .filter-btn.active {
+    border-color: var(--accent);
+    color: var(--accent);
+    background: rgba(0,229,255,0.06);
+  }
+
+  /* ── MAIN GRID ── */
+  .problems-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 20px;
+    max-width: 1240px;
+    margin: 32px auto 0;
+    padding: 0 24px;
+  }
+
+  /* ── PROBLEM CARD ── */
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 26px;
+    position: relative;
+    transition: transform .25s, border-color .25s, box-shadow .25s;
+    overflow: hidden;
+    cursor: pointer;
+  }
+  .card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    border-radius: 14px 14px 0 0;
+  }
+  .card.easy::before   { background: var(--easy); }
+  .card.medium::before { background: var(--medium); }
+  .card.hard::before   { background: var(--hard); }
+
+  .card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(0,229,255,0.25);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.4), 0 0 0 1px rgba(0,229,255,0.08);
+  }
+
+  .card-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 14px;
+  }
+  .card-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    margin-bottom: 4px;
+    letter-spacing: 1px;
+  }
+  .card-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 17px;
+    font-weight: 700;
+    line-height: 1.3;
+    color: #fff;
+  }
+  .badge {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 99px;
+    letter-spacing: 1px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .badge.easy   { background: rgba(76,175,125,0.15); color: var(--easy); border: 1px solid rgba(76,175,125,0.3); }
+  .badge.medium { background: rgba(255,159,67,0.15);  color: var(--medium); border: 1px solid rgba(255,159,67,0.3); }
+  .badge.hard   { background: rgba(255,107,107,0.15); color: var(--hard);   border: 1px solid rgba(255,107,107,0.3); }
+
+  .tag-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 14px;
+  }
+  .tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    padding: 3px 9px;
+    border-radius: 5px;
+    background: rgba(124,77,255,0.1);
+    color: var(--accent2);
+    border: 1px solid rgba(124,77,255,0.2);
+    letter-spacing: .5px;
+  }
+
+  .problem-stmt {
+    font-size: 14px;
+    line-height: 1.75;
+    color: #b8bdd4;
+    margin-bottom: 16px;
+  }
+
+  .requirements {
+    background: var(--card2);
+    border-radius: 8px;
+    padding: 14px 16px;
+    border: 1px solid var(--border);
+  }
+  .req-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .requirements ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .requirements li {
+    font-size: 13px;
+    color: #9da3bd;
+    padding-left: 18px;
+    position: relative;
+    line-height: 1.6;
+  }
+  .requirements li::before {
+    content: '›';
+    position: absolute;
+    left: 4px;
+    color: var(--accent);
+    font-weight: 700;
+  }
+
+  .hint-toggle {
+    margin-top: 14px;
+    background: none;
+    border: none;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    cursor: pointer;
+    letter-spacing: 1px;
+    transition: color .2s;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .hint-toggle:hover { color: var(--gold); }
+  .hint-box {
+    display: none;
+    margin-top: 10px;
+    padding: 12px 14px;
+    background: rgba(255,213,79,0.05);
+    border: 1px solid rgba(255,213,79,0.15);
+    border-radius: 8px;
+    font-size: 13px;
+    color: #c9b370;
+    line-height: 1.6;
+  }
+  .hint-box.open { display: block; }
+
+  /* ── SECTION DIVIDER ── */
+  .section-divider {
+    max-width: 1240px;
+    margin: 40px auto 0;
+    padding: 0 24px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .section-divider span {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    font-weight: 700;
+    white-space: nowrap;
+    color: #fff;
+  }
+  .section-divider::before, .section-divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* filter hide */
+  .card.hidden { display: none; }
+
+  @media (max-width: 600px) {
+    .problems-grid { grid-template-columns: 1fr; }
+    header h1 { font-size: 2rem; }
+    .stats { gap: 20px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="eyebrow">// C++ Programming</div>
+  <h1>OOP Practice Problems</h1>
+  <p>25 carefully crafted problems covering all core Object-Oriented Programming concepts in C++. Each problem includes a clear problem statement and requirements.</p>
+  <div class="stats">
+    <div class="stat"><span class="stat-num">25</span><span class="stat-label">Problems</span></div>
+    <div class="stat"><span class="stat-num" style="color:var(--easy)">10</span><span class="stat-label">Easy</span></div>
+    <div class="stat"><span class="stat-num" style="color:var(--medium)">9</span><span class="stat-label">Medium</span></div>
+    <div class="stat"><span class="stat-num" style="color:var(--hard)">6</span><span class="stat-label">Hard</span></div>
+  </div>
+</header>
+
+<div class="filter-bar">
+  <button class="filter-btn active" onclick="filterCards('all', this)">ALL</button>
+  <button class="filter-btn" onclick="filterCards('easy', this)">EASY</button>
+  <button class="filter-btn" onclick="filterCards('medium', this)">MEDIUM</button>
+  <button class="filter-btn" onclick="filterCards('hard', this)">HARD</button>
+  <button class="filter-btn" onclick="filterCards('classes', this)">CLASSES</button>
+  <button class="filter-btn" onclick="filterCards('inheritance', this)">INHERITANCE</button>
+  <button class="filter-btn" onclick="filterCards('polymorphism', this)">POLYMORPHISM</button>
+  <button class="filter-btn" onclick="filterCards('encapsulation', this)">ENCAPSULATION</button>
+</div>
+
+<!-- ════════════ BEGINNER ════════════ -->
+<div class="section-divider"><span>Beginner — Classes & Objects</span></div>
+<div class="problems-grid" id="grid">
+
+  <!-- P1 -->
+  <div class="card easy" data-tags="easy classes encapsulation">
+    <div class="card-header">
+      <div><div class="card-num">#01</div><div class="card-title">Student Record System</div></div>
+      <span class="badge easy">EASY</span>
+    </div>
+    <div class="tag-row"><span class="tag">classes</span><span class="tag">encapsulation</span></div>
+    <p class="problem-stmt">
+      Design a <code>Student</code> class to store a student's information and perform basic operations on it.
+    </p>
+    <div class="requirements">
+      <div class="req-title">Requirements</div>
+      <ul>
+        <li>Private data members: <code>name</code> (string), <code>rollNo</code> (int), <code>gpa</code> (float)</li>
+        <li>Public constructor to initialize all three attributes</li>
+        <li>Getter and setter methods for each attribute</li>
+        <li>A <code>display()</code> method that prints all student details in a formatted way</li>
+        <li>In <code>main()</code>, create two Student objects, set their data using setters, and display them</li>
+      </ul>
+    </div>
+    <button class="hint-toggle" onclick="toggleHint(this)">💡 SHOW HINT</button>
+    <div class="hint-box">Use <code>private</code> for data and <code>public</code> for methods. Setters should validate that GPA is between 0.0 and 4.0.</div>
+  </div>
+
+  <!-- P2 -->
+  <div class="card easy" data-tags="easy classes encapsulation">
+    <div class="card-header">
+      <div><div class="card-num">#02</div><div class="card-title">Bank Account</div></div>
+      <span class="badge easy">EASY</span>
+    </div>
+    <div class="tag-row"><span class="tag">classes</span><span class="tag">encapsulation</span></div>
+    <p class="problem-stmt">
+      Create a <code>BankAccount</code> class that simulates a simple bank account supporting deposits and withdrawals.
+    </p>
+    <div class="requirements">
+      <div class="req-title">Requirements</div>
+      <ul>
+        <li>Private: <code>accountHolder</code> (string), <code>accountNumber</code> (int), <code>balance</code> (double)</li>
+        <li>Constructor to initialize holder name, account number, and an optional initial balance (default 0)</li>
+        <li><code>deposit(double amount)</code> — add amount to balance; reject negative amounts</li>
+        <li><code>withdraw(double amount)</code> — subtract if funds are sufficient; print error otherwise</li>
+        <li><code>getBalance()</code> — return current balance</li>
+        <li><code>printStatement()</code> — print all account details neatly</li>
+      </ul>
+    </div>
+    <button class="hint-toggle" onclick="toggleHint(this)">💡 SHOW HINT</button>
+    <div class="hint-box">Default parameter syntax: <code>BankAccount(string name, int num, double bal = 0.0)</code>. Guard against overdraft in withdraw.</div>
+  </div>
+
+  <!-- P3 -->
+  <div class="card easy" data-tags="easy classes">
+    <div class="card-header">
+      <div><div class="card-num">#03</div><div class="card-title">Rectangle Calculator</div></div>
+      <span class="badge easy">EASY</span>
+    </div>
+    <div class="tag-row"><span class="tag">classes</span><span class="tag">methods</span></div>
+    <p class="problem-stmt">
+      Build a <code>Rectangle</code> class that stores a rectangle's dimensions and computes geometric properties.
+    </p>
+    <div class="requirements">
+      <div class="req-title">Requirements</div>
+      <ul>
+        <li>Private: <code>width</code> and <code>height</code> (both double)</li>
+        <li>Parameterized constructor and a default constructor (width = height = 1.0)</li>
+        <li><code>area()</code> and <code>perimeter()</code> member functions that return computed values</li>
+        <li><code>isSquare()</code> returning a boolean indicating if width equals height</li>
+        <li><code>scale(double factor)</code> that multiplies both dimensions by the given factor</li>
+      </ul>
+    </div>
+    <button class="hint-toggle" onclick="toggleHint(this)">💡 SHOW HINT</button>
+    <div class="hint-box">Use <code>this->width</code> inside member functions when parameter names shadow member names.</div>
+  </div>
+
+  <!-- P4 -->
+  <div class="card easy" data-tags="easy classes encapsulation">
+    <div class="card-header">
+      <div><div class="card-num">#04</div><div class="card-title">Temperature Converter</div></div>
+      <span class="badge easy">EASY</span>
+    </div>
+    <div class="tag-row"><span class="tag">classes</span><span class="tag">methods</span></div>
+    <p class="problem-stmt">
+      Write a <code>Temperature</code> class that stores a temperature value and converts between Celsius, Fahrenheit, and Kelvin.
+    </p>
+    <div class="requirements">
+      <div class="req-title">Requirements</div>
+      <ul>
+        <li>Private: <code>celsius</code> (double) as the internal storage unit</li>
+        <li>Constructor accepting a double value and a char unit (<code>'C'</code>, <code>'F'</code>, or <code>'K'</code>); convert to Celsius internally</li>
+        <li><code>toCelsius()</code>, <code>toFahrenheit()</code>, <code>toKelvin()</code> — each returns the converted value</li>
+        <li><code>display()</code> prints all three representations on one line</li>
+      </ul>
+    </div>
+    <button class="hint-toggle" onclick="toggleHint(this)">💡 SHOW HINT</button>
+    <div class="hint-box">Formulas: F = C×9/5 + 32 and K = C + 273.15. Store only Celsius internally for simplicity.</div>
+  </div>
+
+  <!-- P5 -->
+  <div class="card easy" data-tags="easy classes constructors">
+    <div class="card-header">
+      <div><div class="card-num">#05</div><div class="card-title">Constructor Overloading — Book</div></div>
+      <span class="badge easy">EASY</span>
+    </div>
+    <div class="tag-row"><span class="tag">constructors</span><span class="tag">overloading</span></div>
+    <p class="problem-stmt">
+      Create a <code>Book</code> class that demonstrates constructor overloading with different levels of initialization detail.
+    </p>
+    <div class="requirements">
+      <div class="req-title">Requirements</div>
+      <ul>
+        <li>Data members: <code>title</code>, <code>author</code>, <code>isbn</code> (all string), <code>price</code> (double), <code>pages</code> (int)</li>
+        <li>Constructor 1: no arguments — sets all strings to "Unknown", price = 0.0, pages = 0</li>
+        <li>Constructor 2: accepts only <code>title</code> and <code>author</code></li>
+        <li>Constructor 3: accepts all five attributes</li>
+        <li>A <code>display()</code> method and a <code>applyDiscount(double percent)</code> method</li>
+      </ul>
+    </div>
+    <button class="hint-toggle" onclick="toggleHint(this)">💡 SHOW HINT</button>
+    <div class="hint-box">Three constructors with different signatures. In <code>main()</code> create one object with each constructor to verify they work.</div>
+  </div>
+
+</div>
+
+<!-- ════════════ INTERMEDIATE ════════════ -->
+<div class="section-divider"><span>Intermediate — Inheritance & Polymorphism</span></div>
+<div class="problems-grid">
+
+  <!-- P6 -->
+  <div class="card easy" data-tags="easy inheritance">
+    <div class="card-header">
+      <div><div class="card-num">#06</div><div class="card-title">Vehicle Hierarchy</div></div>
+      <span class="badge easy">EASY</span>
+    </div>
+    <div class="tag-row"><span class="tag">inheritance</span><span class="tag">base class</span></div>
+    <p class="problem-stmt">
+      Model a vehicle hierarchy using single-level inheritance to share common attributes between a base and derived class.
+    </p>
+    <div class="requirements">
+      <div class="req-title">Requirements</div>
+      <ul>
+        <li>Base class <code>Vehicle</code>: protected <code>brand</code>, <code>model</code> (string), <code>year</code> (int), <code>speed</code> (double)</li>
+        <li>Base class has a constructor and a <code>display()</code> virtual method</li>
+        <li>Derived class <code>Car</code>: adds <code>numDoors</code> (int) and <code>fuelType</code> (string)</li>
+        <li>Derived class <code>Motorcycle</code>: adds <code>hasSidecar</code> (bool)</li>
+        <li>Both derived classes override <code>display()</code> to call base <code>display()</code> then print their extra fields</li>
+      </ul>
+    </div>
+    <button class="hint-toggle" onclick="toggleHint(this)">💡 SHOW HINT</button>
+    <div class="hint-box">Call the parent constructor from the derived constructor using <code>: Vehicle(brand, model, year, speed)</code> in the initializer list.</div>
+  </div>
+
+  <!-- P7 -->
+  <div class="card medium" data-tags="medium inheritance polymorphism">
+    <div class="card-header">
+      <div><div class="card-num">#07</div><div class="card-title">Shape Area Polymorphism</div></div>
+      <span class="badge medium">MEDIUM</span>
+    </div>
+    <div class="tag-row"><span class="tag">polymorphism</span><span class="tag">virtual</span><span class="tag">inheritance</span></div>
+    <p class="problem-stmt">
+      Design an abstract <code>Shape</code> base class and implement multiple derived shape classes, then demonstrate runtime polymorphism.
+    </p>
+    <div class="requirements">
+      <div class="req-title">Requirements</div>
+      <ul>
+        <li>Abstract base class <code>Shape</code> with pure virtual <code>area()</code> and <code>perimeter()</code></li>
+        <li>Non-virtual <code>describe()</code> that prints the shape's name (use a virtual <code>getName()</code> to get it)</li>
+        <li>Derived classes: <code>Circle</code>, <code>Rectangle</code>, <code>Triangle</code> — each overrides both pure virtual methods</li>
+        <li>In <code>main()</code>, create an array of <code>Shape*</code> pointers pointing to objects of each derived type</li>
+        <li>Loop through the array calling <code>describe()</code>, <code>area()</code>, and <code>perimeter()</code> — must work via dynamic dispatch</li>
+      </ul>
+    </div>
+    <button class="hint-toggle" onclick="toggleHint(this)">💡 SHOW HINT</button>
+    <div class="hint-box">Declare a virtual destructor in the base class. Use <code>= 0</code> for pure virtual. Store <code>Shape* shapes[3]</code> and use <code>new</code> to allocate.</div>
+  </div>
+
+  <!-- P8 -->
+  <div class="card medium" data-tags="medium inheritance">
+    <div class="card-header">
+      <div><div class="card-num">#08</div><div class="card-title">Employee Payroll System</div></div>
+      <span class="badge medium">MEDIUM</span>
+    </div>
+    <div class="tag-row"><span class="tag">inheritance</span><span class="tag">virtual</span><span class="tag">polymorphism</span></div>
+    <p class="problem-stmt">
+      Build a payroll system with a base <code>Employee</code> class and two specialized subclasses that compute salaries differently.
+    </p>
+    <div class="requirements">
+      <div class="req-title">Requirements</div>
+      <ul>
+        <li>Base <code>Employee</code>: <code>name</code>, <code>id</code> (int), <code>baseSalary</code> (double); virtual <code>computePay()</code></li>
+        <li>Derived <code>FullTimeEmployee</code>: fixed monthly salary = baseSalary; override <code>computePay()</code></li>
+        <li>Derived <code>PartTimeEmployee</code>: adds <code>hoursWorked</code> (double) and <code>hourlyRate</code> (double); pay = hours × rate</li>
+        <li>Derived <code>Contractor</code>: adds <code>projectFee</code> (double) and <code>taxRate</code> (double); pay = fee × (1 − taxRate)</li>
+        <li>Write a <code>printPayroll(Employee* e)</code> free function that calls <code>computePay()</code> polymorphically</li>
+      </ul>
+    </div>
+    <button class="hint-toggle" onclick="toggleHint(this)">💡 SHOW HINT</button>
+    <div class="hint-box">Make <code>computePay()</code> virtual (not pure virtual) in the base class so it can have a default implementation.</div>
+  </div>
+
+  <!-- P9 -->
+  <div class="card medium" data-tags="medium inheritance">
+    <div class="card-header">
+      <div><div class="card-num">#09</div><div class="card-title">Multi-Level Inheritance — Animal Kingdom</div></div>
+      <span class="badge medium">MEDIUM</span>
+    </div>
+    <div class="tag-row"><span class="tag">multi-level</span><span class="tag">inheritance</span></div>
+    <p class="problem-stmt">
+      Implement a three-level inheritance chain modeling the animal kingdom, demonstrating how properties and behaviors are passed down through levels.
+    </p>
+    <div class="requirements">
+      <div class="req-title">Requirements</div>
+      <ul>
+        <li>Level 1 — <code>Animal</code>: <code>name</code>, <code>age</code>; virtual <code>speak()</code> prints a generic sound</li>
+        <li>Level 2 — <code>Mammal</code> (inherits Animal): adds <code>furColor</code>; overrides <code>speak()</code></li>
+        <li>Level 3 — <code>Dog</code> (inherits Mammal): adds <code>breed</code>; overrides <code>speak()</code> to print "Woof!"</li>
+        <li>Each class has its own <code>display()</code> that calls its parent's <code>display()</code> before adding new fields</li>
+        <li>Demonstrate in <code>main()</code> by creating a <code>Dog</code> object and calling all methods</li>
+      </ul>
+    </div>
+    <button class="hint-toggle" onclick="toggleHint(this)">💡 SHOW HINT</button>
+    <div class="hint-box">In Dog::display(), call <code>Mammal::display()</code>. In Mammal::display(), call <code>Animal::display()</code>. Chain it like a call stack.</div>
+  </div>
+
+  <!-- P10 -->
+  <div class="card medium" data-tags="medium encapsulation classes">
+    <div class="card-header">
+      <div><div class="card-num">#10</div><div class="card-title">Library Management</div></div>
+      <span class="badge medium">MEDIUM</span>
+    </div>
+    <div class="tag-row"><span class="tag">classes</span><span class="tag">arrays</span><span class="tag">encapsulation</span></div>
+    <p class="problem-stmt">
+      Implement a <code>Library</code> class that manages a collection of <code>Book</code> objects and supports searching and borrowing.
+    </p>
+    <div class="requirements">
+      <div class="req-title">Requirements</div>
+      <ul>
+        <li><code>Book</code> class: <code>title</code>, <code>author</code>, <code>isbn</code>, <code>isAvailable</code> (bool)</li>
+        <li><code>Library</code> class: stores up to 100 books in an array, tracks count</li>
+        <li><code>addBook(Book b)</code>, <code>removeBook(string isbn)</code></li>
+        <li><code>searchByTitle(string)</code> and <code>searchByAuthor(string)</code> — return matching books</li>
+        <li><code>borrowBook(string isbn)</code> marks the book unavailable; <code>returnBook(string isbn)</code> marks it available again</li>
+        <li><code>displayAll()</code> prints all books and their availability status</li>
+      </ul>
+    </div>
+    <button class="hint-toggle" onclick="toggleHint(this)">💡 SHOW HINT</button>
+    <div class="hint-box">Use a fixed-size array <code>Book books[100]</code> and an int counter. Linear search is fine here.</div>
+  </div>
+
+  <!-- P11 -->
+  <div class="card easy" data-tags="easy encapsulation classes">
+    <div class="card-header">
+      <div><div class="card-num">#11</div><div class="card-title">Fraction Class with Operator Concepts</div></div>
+      <span class="badge easy">EASY</span>
+    </div>
+    <div class="tag-row"><span class="tag">classes</span><span class="tag">methods</span></div>
+    <p class="problem-stmt">
+      Implement a <code>Fraction</code> class that stores a fraction and supports arithmetic operations as member methods.
+    </p>
+    <div class="requirements">
+      <div class="req-title">Requirements</div>
+      <ul>
+        <li>Private: <code>numerator</code> and <code>denominator</code> (both int)</li>
+        <li>Constructor: validate that denominator ≠ 0; throw or print error if it is</li>
+        <li>Private helper <code>simplify()</code> that reduces the fraction using GCD</li>
+        <li>Methods: <code>add(Fraction)</code>, <code>subtract(Fraction)</code>, <code>multiply(Fraction)</code>, <code>divide(Fraction)</code> — each returns a new <code>Fraction</code></li>
+        <li><code>display()</code> prints in the form <code>3/4</code></li>
+      </ul>
+    </div>
+    <button class="hint-toggle" onclick="toggleHint(this)">💡 SHOW HINT</button>
+    <div class="hint-box">Implement GCD using Euclid's algorithm: <code>gcd(a,b) = (b==0) ? a : gcd(b, a%b)</code>. Call simplify() at the end of each arithmetic method.</div>
+  </div>
+
+  <!-- P12 -->
+  <div class="card medium" data-tags="medium polymorphism virtual">
+    <div class="card-header">
+      <div><div class="card-num">#12</div><div class="card-title">Payment Gateway Simulation</div></div>
+      <span class="badge medium">MEDIUM</span>
+    </div>
+    <div class="tag-row"><span class="tag">polymorphism</span><span class="tag">abstract class</span></div>
+    <p class="problem-stmt">
+      Design a payment processing system using an abstract <code>PaymentMethod</code> base class and multiple derived payment types.
+    </p>
+    <div class="requirements">
+      <div class="req-title">Requirements</div>
+      <ul>
+        <li>Abstract base <code>PaymentMethod</code>: pure virtual <code>processPayment(double amount)</code> and <code>getDetails()</code></li>
+        <li>Derived <code>CreditCard</code>: stores card number (last 4 digits only), holder name, expiry; applies a 2% processing fee</li>
+        <li>Derived <code>BankTransfer</code>: stores bank name and account number; no extra fee</li>
+        <li>Derived <code>DigitalWallet</code>: stores wallet ID; applies a 0.5% fee</li>
+        <li>Write a <code>checkout(PaymentMethod*, double)</code> function that calls <code>processPayment()</code> and prints a receipt</li>
+      </ul>
+    </div>
+    <button class="hint-toggle" onclick="toggleHint(this)">💡 SHOW HINT</button>
+    <div class="hint-box">Each derived class's <code>processPayment()</code> should print a confirmation and return the final charged amount including any fees.</div>
+  </div>
+
+  <!-- P13 -->
+  <div class="card easy" data-tags="easy classes static">
+    <div class="card-header">
+      <div><div class="card-num">#13</div><div class="card-title">Counter with Static Members</div></div>
+      <span class="badge easy">EASY</span>
+    </div>
+    <div class="tag-row"><span class="tag">static</span><span class="tag">classes</span></div>
+    <p class="problem-stmt">
+      Create an <code>Object</code> class that uses a static data member to automatically track how many instances of the class currently exist in memory.
+    </p>
+    <div class="requirements">
+      <div class="req-title">Requirements</div>
+      <ul>
+        <li>Static private <code>instanceCount</code> (int) initialized to 0</li>
+        <li>Constructor increments the count; destructor decrements it</li>
+        <li>Static method <code>getCount()</code> returns the current count</li>
+        <li>Data member: <code>label</code> (string) for identification</li>
+        <li>In <code>main()</code>, create objects inside and outside a block <code>{}</code> and observe count changes</li>
+      </ul>
+    </div>
+    <button class="hint-toggle" onclick="toggleHint(this)">💡 SHOW HINT</button>
+    <div class="hint-box">Declare: <code>static int instanceCount;</code> inside the class, then define outside: <code>int Object::instanceCount = 0;</code></div>
+  </div>
+
+  <!-- P14 -->
+  <div class="card medium" data-tags="medium inheritance encapsulation">
+    <div class="card-header">
+      <div><div class="card-num">#14</div><div class="card-title">University Person Hierarchy</div></div>
+      <span class="badge medium">MEDIUM</span>
+    </div>
+    <div class="tag-row"><span class="tag">inheritance</span><span class="tag">multi-level</span></div>
+    <p class="problem-stmt">
+      Model a university system with a <code>Person</code> base class and specialized subclasses for students and faculty members.
+    </p>
+    <div class="requirements">
+      <div class="req-title">Requirements</div>
+      <ul>
+        <li>Base <code>Person</code>: <code>name</code>, <code>cnic</code>, <code>email</code> (all string), <code>age</code> (int)</li>
+        <li>Derived <code>Student</code>: adds <code>rollNumber</code>, <code>degree</code> (string), <code>cgpa</code> (float), array of <code>courses[10]</code></li>
+        <li>Derived <code>Professor</code>: adds <code>employeeId</code>, <code>department</code>, <code>rank</code>, <code>salary</code> (double)</li>
+        <li>Both derived classes have <code>enroll()</code> / <code>assignCourse()</code> methods respectively</li>
+        <li>Override <code>display()</code> in each class; call parent <code>display()</code> from within</li>
+      </ul>
+    </div>
+    <button class="hint-toggle" onclick="toggleHint(this)">💡 SHOW HINT</button>
+    <div class="hint-box">Use <code>protected</code> in <code>Person</code> so derived classes can directly access those members without getters.</div>
+  </div>
+
+  <!-- P15 -->
+  <div class="card easy" data-tags="easy classes encapsulation">
+    <div class="card-header">
+      <div><div class="card-num">#15</div><div class="card-title">Stack Using a Class</div></div>
+      <span class="badge easy">EASY</span>
+    </div>
+    <div class="tag-row"><span class="tag">classes</span><span class="tag">data structure</span></div>
+    <p class="problem-stmt">
+      Implement a fixed-capacity integer <code>Stack</code> class from scratch using an array as internal storage.
+    </p>
+    <div class="requirements">
+      <div class="req-title">Requirements</div>
+      <ul>
+        <li>Private: <code>data[100]</code> (int array), <code>top</code> (int, initialized to -1), <code>capacity</code> (int)</li>
+        <li><code>push(int val)</code> — add to top; print "Stack Overflow" if full</li>
+        <li><code>pop()</code> — remove and return top; print "Stack Underflow" if empty</li>
+        <li><code>peek()</code> — return top element without removing it</li>
+        <li><code>isEmpty()</code>, <code>isFull()</code>, <code>size()</code>, <code>display()</code></li>
+      </ul>
+    </div>
+    <button class="hint-toggle" onclick="toggleHint(this)">💡 SHOW HINT</button>
+    <div class="hint-box"><code>isEmpty()</code> returns <code>top == -1</code>. <code>isFull()</code> returns <code>top == capacity - 1</code>.</div>
+  </div>
+
+</div>
+
+<!-- ════════════ ADVANCED ════════════ -->
+<div class="section-divider"><span>Advanced — Operator Overloading, Friends & Patterns</span></div>
+<div class="problems-grid">
+
+  <!-- P16 -->
+  <div class="card medium" data-tags="medium classes operator">
+    <div class="card-header">
+      <div><div class="card-num">#16</div><div class="card-title">Complex Number Operator Overloading</div></div>
+      <span class="badge medium">MEDIUM</span>
+    </div>
+    <div class="tag-row"><span class="tag">operator overloading</span><span class="tag">friend</span></div>
+    <p class="problem-stmt">
+      Build a <code>Complex</code> number class and overload arithmetic and comparison operators so complex numbers can be used naturally with standard notation.
+    </p>
+    <div class="requirements">
+      <div class="req-title">Requirements</div>
+      <ul>
+        <li>Private: <code>real</code> and <code>imag</code> (double)</li>
+        <li>Overload <code>+</code>, <code>-</code>, <code>*</code> as member operators returning a new <code>Complex</code></li>
+        <li>Overload <code>==</code> and <code>!=</code> for equality comparison</li>
+        <li>Overload <code>&lt;&lt;</code> as a friend function to print in the form <code>(3 + 4i)</code></li>
+        <li><code>magnitude()</code> method returning <code>√(real² + imag²)</code></li>
+        <li>Test in <code>main()</code>: add, subtract, multiply two complex numbers and print results</li>
+      </ul>
+    </div>
+    <button class="hint-toggle" onclick="toggleHint(this)">💡 SHOW HINT</button>
+    <div class="hint-box">Friend function signature: <code>friend ostream& operator&lt;&lt;(ostream& os, const Complex& c);</code>. Return <code>os</code> at the end to allow chaining.</div>
+  </div>
+
+  <!-- P17 -->
+  <div class="card hard" data-tags="hard inheritance polymorphism">
+    <div class="card-header">
+      <div><div class="card-num">#17</div><div class="card-title">E-Commerce Product Hierarchy</div></div>
+      <span class="badge hard">HARD</span>
+    </div>
+    <div class="tag-row"><span class="tag">inheritance</span><span class="tag">polymorphism</span><span class="tag">virtual</span></div>
+    <p class="problem-stmt">
+      Design a product catalog system for an e-commerce platform with different product types that are taxed and discounted differently.
+    </p>
+    <div class="requirements">
+      <div class="req-title">Requirements</div>
+      <ul>
+        <li>Abstract base <code>Product</code>: <code>id</code>, <code>name</code>, <code>basePrice</code>; pure virtual <code>finalPrice()</code> and <code>category()</code></li>
+        <li><code>Electronics</code>: adds <code>warrantyYears</code>; tax = 17%; <code>finalPrice()</code> = base + tax</li>
+        <li><code>Clothing</code>: adds <code>size</code>, <code>material</code>; discount = 10%; <code>finalPrice()</code> = base − discount</li>
+        <li><code>Grocery</code>: adds <code>expiryDate</code>; no tax; if expiry within 3 days, apply 30% discount</li>
+        <li>A <code>ShoppingCart</code> class that holds up to 20 <code>Product*</code> and computes total using <code>finalPrice()</code></li>
+        <li><code>ShoppingCart::printReceipt()</code> lists all items with base price, adjustments, and final price</li>
+      </ul>
+    </div>
+    <button class="hint-toggle" onclick="toggleHint(this)">💡 SHOW HINT</button>
+    <div class="hint-box">Store a <code>Product* items[20]</code> in ShoppingCart. The polymorphic call <code>items[i]->finalPrice()</code> will automatically invoke the right subclass method.</div>
+  </div>
+
+  <!-- P18 -->
+  <div class="card hard" data-tags="hard inheritance polymorphism">
+    <div class="card-header">
+      <div><div class="card-num">#18</div><div class="card-title">Hospital Patient Management</div></div>
+      <span class="badge hard">HARD</span>
+    </div>
+    <div class="tag-row"><span class="tag">inheritance</span><span class="tag">aggregation</span><span class="tag">polymorphism</span></div>
+    <p class="problem-stmt">
+      Design a hospital system involving patients, doctors, and appointments where multiple classes interact through composition and polymorphism.
+    </p>
+    <div class="requirements">
+      <div class="req-title">Requirements</div>
+      <ul>
+        <li><code>Person</code> base class; <code>Patient</code> and <code>Doctor</code> derive from it</li>
+        <li><code>Patient</code>: patientId, diagnosis, string medicalHistory[20], virtual <code>computeBill()</code></li>
+        <li><code>InPatient</code> (extends Patient): adds <code>roomNumber</code>, <code>daysAdmitted</code>; bill = days × roomRate</li>
+        <li><code>OutPatient</code> (extends Patient): adds <code>numVisits</code>; bill = visits × consultFee</li>
+        <li><code>Doctor</code>: specialization, schedule; <code>prescribe(Patient*)</code> adds to patient's history</li>
+        <li><code>Hospital</code> class: manages arrays of patients and doctors; <code>generateReport()</code> prints all patient bills using polymorphism</li>
+      </ul>
+    </div>
+    <button class="hint-toggle" onclick="toggleHint(this)">💡 SHOW HINT</button>
+    <div class="hint-box">Keep <code>computeBill()</code> as pure virtual in <code>Patient</code>. Only InPatient and OutPatient implement it.</div>
+  </div>
+
+  <!-- P19 -->
+  <div class="card medium" data-tags="medium classes operator">
+    <div class="card-header">
+      <div><div class="card-num">#19</div><div class="card-title">Matrix Class</div></div>
+      <span class="badge medium">MEDIUM</span>
+    </div>
+    <div class="tag-row"><span class="tag">classes</span><span class="tag">operator overloading</span><span class="tag">2D arrays</span></div>
+    <p class="problem-stmt">
+      Implement a <code>Matrix</code> class that stores a 2D integer matrix and supports addition, multiplication, and transposition.
+    </p>
+    <div class="requirements">
+      <div class="req-title">Requirements</div>
+      <ul>
+        <li>Private: 2D array <code>data[10][10]</code>, <code>rows</code>, <code>cols</code> (int)</li>
+        <li>Constructor taking rows and cols; random fill method <code>fillRandom(int min, int max)</code></li>
+        <li><code>add(Matrix)</code>: returns a new matrix (dimensions must match)</li>
+        <li><code>multiply(Matrix)</code>: returns result matrix (cols of A must equal rows of B)</li>
+        <li><code>transpose()</code>: returns transposed matrix</li>
+        <li><code>display()</code>: prints the matrix in a formatted grid</li>
+      </ul>
+    </div>
+    <button class="hint-toggle" onclick="toggleHint(this)">💡 SHOW HINT</button>
+    <div class="hint-box">Multiplication: <code>result[i][j] += data[i][k] * other.data[k][j]</code> for k in 0..cols-1. Validate dimensions before operating.</div>
+  </div>
+
+  <!-- P20 -->
+  <div class="card hard" data-tags="hard inheritance polymorphism">
+    <div class="card-header">
+      <div><div class="card-num">#20</div><div class="card-title">RPG Character System</div></div>
+      <span class="badge hard">HARD</span>
+    </div>
+    <div class="tag-row"><span class="tag">polymorphism</span><span class="tag">inheritance</span><span class="tag">abstract</span></div>
+    <p class="problem-stmt">
+      Build an RPG character system where different character classes have unique abilities, stats, and attack behaviors — all accessed through a unified interface.
+    </p>
+    <div class="requirements">
+      <div class="req-title">Requirements</div>
+      <ul>
+        <li>Abstract base <code>Character</code>: <code>name</code>, <code>level</code>, <code>hp</code>, <code>maxHp</code>, <code>attackPower</code>; pure virtual <code>attack(Character*)</code> and <code>specialAbility()</code></li>
+        <li>Derived <code>Warrior</code>: high HP, armor reduces incoming damage by 20%</li>
+        <li>Derived <code>Mage</code>: adds <code>mana</code>; special ability deals 3× damage but costs mana</li>
+        <li>Derived <code>Archer</code>: adds <code>critChance</code> (double 0–1); attack has a chance to deal double damage</li>
+        <li><code>battle(Character*, Character*)</code> free function — they take turns attacking until one's HP reaches 0; print a turn-by-turn log</li>
+        <li>All characters have <code>displayStats()</code> that shows a formatted status screen</li>
+      </ul>
+    </div>
+    <button class="hint-toggle" onclick="toggleHint(this)">💡 SHOW HINT</button>
+    <div class="hint-box">Use <code>rand() % 100 &lt; critChance * 100</code> for crit rolls. In <code>battle()</code>, alternate calling <code>a->attack(b)</code> and <code>b->attack(a)</code> in a loop.</div>
+  </div>
+
+  <!-- P21 -->
+  <div class="card hard" data-tags="hard inheritance polymorphism encapsulation">
+    <div class="card-header">
+      <div><div class="card-num">#21</div><div class="card-title">Smart Home Device System</div></div>
+      <span class="badge hard">HARD</span>
+    </div>
+    <div class="tag-row"><span class="tag">inheritance</span><span class="tag">interface</span><span class="tag">polymorphism</span></div>
+    <p class="problem-stmt">
+      Model a smart home system where diverse IoT devices share a common controllable interface but behave differently when switched on or off.
+    </p>
+    <div class="requirements">
+      <div class="req-title">Requirements</div>
+      <ul>
+        <li>Abstract base <code>SmartDevice</code>: <code>deviceId</code>, <code>name</code>, <code>isOn</code> (bool); pure virtual <code>turnOn()</code>, <code>turnOff()</code>, <code>getStatus()</code></li>
+        <li><code>SmartLight</code>: adds <code>brightness</code> (0–100) and <code>colorTemp</code>; turnOn sets brightness to last saved level</li>
+        <li><code>SmartThermostat</code>: adds <code>targetTemp</code>, <code>currentTemp</code>; turnOn starts heating/cooling simulation</li>
+        <li><code>SmartLock</code>: adds <code>pinCode</code>; <code>unlock(int pin)</code> opens only if pin matches</li>
+        <li><code>HomeController</code> class manages up to 50 <code>SmartDevice*</code>; methods: <code>allOff()</code>, <code>allOn()</code>, <code>statusReport()</code></li>
+      </ul>
+    </div>
+    <button class="hint-toggle" onclick="toggleHint(this)">💡 SHOW HINT</button>
+    <div class="hint-box">The <code>HomeController::allOff()</code> loop calls <code>devices[i]->turnOff()</code> polymorphically. Each device type handles what "off" means for it.</div>
+  </div>
+
+  <!-- P22 -->
+  <div class="card medium" data-tags="medium classes encapsulation">
+    <div class="card-header">
+      <div><div class="card-num">#22</div><div class="card-title">Linked List Class</div></div>
+      <span class="badge medium">MEDIUM</span>
+    </div>
+    <div class="tag-row"><span class="tag">classes</span><span class="tag">pointers</span><span class="tag">data structure</span></div>
+    <p class="problem-stmt">
+      Implement a singly linked list as a class with a separate <code>Node</code> class, supporting insertion, deletion, and traversal operations.
+    </p>
+    <div class="requirements">
+      <div class="req-title">Requirements</div>
+      <ul>
+        <li><code>Node</code> class: <code>data</code> (int), <code>next</code> (Node*)</li>
+        <li><code>LinkedList</code> class: private <code>head</code> (Node*), <code>size</code> (int)</li>
+        <li><code>insertFront(int)</code>, <code>insertBack(int)</code>, <code>insertAt(int pos, int val)</code></li>
+        <li><code>deleteFront()</code>, <code>deleteBack()</code>, <code>deleteByValue(int)</code></li>
+        <li><code>search(int)</code> returns position (-1 if not found), <code>display()</code>, <code>reverse()</code></li>
+        <li>Destructor that frees all allocated nodes to avoid memory leaks</li>
+      </ul>
+    </div>
+    <button class="hint-toggle" onclick="toggleHint(this)">💡 SHOW HINT</button>
+    <div class="hint-box">For <code>reverse()</code>: use three pointers — <code>prev</code>, <code>curr</code>, <code>next</code>. Destructor: traverse and <code>delete</code> each node one by one.</div>
+  </div>
+
+  <!-- P23 -->
+  <div class="card hard" data-tags="hard classes encapsulation">
+    <div class="card-header">
+      <div><div class="card-num">#23</div><div class="card-title">Mini Text Editor</div></div>
+      <span class="badge hard">HARD</span>
+    </div>
+    <div class="tag-row"><span class="tag">classes</span><span class="tag">string operations</span><span class="tag">encapsulation</span></div>
+    <p class="problem-stmt">
+      Build a <code>TextEditor</code> class that simulates core editing features — inserting, deleting, searching text, and supporting a simple undo/redo history.
+    </p>
+    <div class="requirements">
+      <div class="req-title">Requirements</div>
+      <ul>
+        <li>Stores document text as a <code>string</code>; private cursor position (int)</li>
+        <li><code>insert(string text)</code> inserts at cursor; <code>deleteChars(int n)</code> removes n chars before cursor</li>
+        <li><code>moveCursor(int pos)</code>, <code>find(string word)</code> returns position of first occurrence</li>
+        <li><code>replace(string oldWord, string newWord)</code> replaces first occurrence</li>
+        <li>Undo/redo stack (up to 20 states): <code>undo()</code> and <code>redo()</code> restore previous states</li>
+        <li><code>display()</code> prints the current text with a cursor marker <code>|</code></li>
+      </ul>
+    </div>
+    <button class="hint-toggle" onclick="toggleHint(this)">💡 SHOW HINT</button>
+    <div class="hint-box">Before every modifying operation, push the current text onto an undo stack (array of strings). Undo pops from undo stack and pushes to redo stack.</div>
+  </div>
+
+  <!-- P24 -->
+  <div class="card medium" data-tags="medium classes encapsulation">
+    <div class="card-header">
+      <div><div class="card-num">#24</div><div class="card-title">Date Class with Validation</div></div>
+      <span class="badge medium">MEDIUM</span>
+    </div>
+    <div class="tag-row"><span class="tag">classes</span><span class="tag">validation</span><span class="tag">operator overloading</span></div>
+    <p class="problem-stmt">
+      Implement a robust <code>Date</code> class that stores a calendar date, validates all inputs, and supports date arithmetic.
+    </p>
+    <div class="requirements">
+      <div class="req-title">Requirements</div>
+      <ul>
+        <li>Private: <code>day</code>, <code>month</code>, <code>year</code> (int)</li>
+        <li>Constructor validates the date; throws or prints error for invalid dates (e.g., Feb 30)</li>
+        <li>Private helper <code>isLeapYear()</code> and <code>daysInMonth()</code></li>
+        <li><code>addDays(int n)</code> returns a new Date n days later; handles month/year rollovers</li>
+        <li><code>daysBetween(Date)</code> returns the number of days between two dates</li>
+        <li>Overload <code>&lt;</code>, <code>&gt;</code>, <code>==</code> for date comparison and <code>&lt;&lt;</code> to print as <code>DD/MM/YYYY</code></li>
+      </ul>
+    </div>
+    <button class="hint-toggle" onclick="toggleHint(this)">💡 SHOW HINT</button>
+    <div class="hint-box">For <code>addDays()</code>, use a loop that advances the date one month at a time to avoid complex day arithmetic. Leap year: divisible by 4, not 100, or divisible by 400.</div>
+  </div>
+
+  <!-- P25 -->
+  <div class="card hard" data-tags="hard inheritance polymorphism encapsulation">
+    <div class="card-header">
+      <div><div class="card-num">#25</div><div class="card-title">Mini Banking System</div></div>
+      <span class="badge hard">HARD</span>
+    </div>
+    <div class="tag-row"><span class="tag">inheritance</span><span class="tag">polymorphism</span><span class="tag">encapsulation</span></div>
+    <p class="problem-stmt">
+      Build a complete mini banking system with multiple account types, transaction history, and a bank manager class — the final capstone problem.
+    </p>
+    <div class="requirements">
+      <div class="req-title">Requirements</div>
+      <ul>
+        <li>Abstract base <code>Account</code>: <code>accountNumber</code>, <code>holder</code>, <code>balance</code>; pure virtual <code>calculateInterest()</code></li>
+        <li><code>SavingsAccount</code>: interest = 5% per year, min balance requirement of 500</li>
+        <li><code>CurrentAccount</code>: no interest, overdraft limit of 10,000</li>
+        <li><code>FixedDeposit</code>: <code>tenureMonths</code>, <code>interestRate</code>; locked — no withdrawals until maturity</li>
+        <li>Each account maintains a <code>Transaction</code> history array (last 50 transactions: type, amount, date string)</li>
+        <li><code>Bank</code> class: manages 200 accounts; methods: <code>openAccount()</code>, <code>closeAccount()</code>, <code>transfer(from, to, amount)</code>, <code>generateStatement(accountNo)</code></li>
+      </ul>
+    </div>
+    <button class="hint-toggle" onclick="toggleHint(this)">💡 SHOW HINT</button>
+    <div class="hint-box">Use a <code>struct Transaction { string type; double amount; string date; }</code> and an array in each Account. The Bank stores <code>Account*</code> pointers for polymorphic dispatch.</div>
+  </div>
+
+</div>
+
+<script>
+  function toggleHint(btn) {
+    const box = btn.nextElementSibling;
+    box.classList.toggle('open');
+    btn.textContent = box.classList.contains('open') ? '🙈 HIDE HINT' : '💡 SHOW HINT';
+  }
+
+  function filterCards(filter, btn) {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+
+    document.querySelectorAll('.card').forEach(card => {
+      if (filter === 'all') {
+        card.classList.remove('hidden');
+        return;
+      }
+      const tags = card.dataset.tags || '';
+      card.classList.toggle('hidden', !tags.includes(filter));
+    });
+  }
+</script>
+</body>
+</html>
