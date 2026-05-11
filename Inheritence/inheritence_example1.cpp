@@ -6,7 +6,6 @@ protected:
     string name;
     int age;
 
-    
 public:
     void get_data()
     {

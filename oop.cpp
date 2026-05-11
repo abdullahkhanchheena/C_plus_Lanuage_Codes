@@ -1,73 +1,121 @@
 #include <iostream>
 using namespace std;
-class point
+class shape
 {
-protected:
-	int x, y;
-
 public:
-	point(int, int);
-	void display(void);
-	~point() { cout << "Point Destructor Called" << endl; }
+	shape()
+	{
+	}
+	virtual void setvalues() = 0;
+	virtual double area() = 0;
+	virtual void display() = 0;
+	virtual ~shape()
+	{
+	}
 };
-point::point(int a, int b)
+class circle : public shape
 {
-	cout << "Point Class Constructor Called" << endl;
-	x = a;
-	y = b;
-}
-
-void point::display(void)
-{
-	cout << "Point = [" << x << "," << y << "]" << endl;
-}
-class circle : public point
-{
-protected:
+private:
 	double radius;
 
 public:
-	circle(int, int, double);
-	void display(void);
-	~circle() { cout << "Circle Destructor Called!" << endl; }
+	circle() : radius(0)
+	{
+	}
+	void setvalues()
+	{
+		cout << "           Enter Values for Circle              " << endl;
+		cout << "Enter Radius: ";
+		cin >> radius;
+	}
+	double area() override
+	{
+		return 3.1416 * radius * radius;
+	}
+	void display() override
+	{
+		cout << "Area of Circle: " << area() << endl;
+	}
+	~circle()
+	{
+	}
 };
-circle::circle(int a, int b, double c) : point(a, b)
+class rectangle : public shape
 {
-	cout << "Circle Constructor Called!" << endl;
-	radius = c;
-}
-void circle::display(void)
-{
-	point::display();
-	cout << "and Radius = " << radius << endl;
-}
-
-class cylinder : public circle
-{
-	double height;
+private:
+	double length;
+	double width;
 
 public:
-	cylinder(int, int, double, double);
-	void display(void);
-	double getvolume(void);
-	~cylinder() { cout << "Cylinder Destructor Called!" << endl; }
+	rectangle() : length(0), width(0)
+	{
+	}
+	void setvalues()
+	{
+		cout << "            Enter Values for Rectangle              " << endl;
+		cout << "Enter Length: ";
+		cin >> length;
+		cout << "Enter Width: ";
+		cin >> width;
+	}
+	double area() override
+	{
+		return length * width;
+	}
+	void display() override
+	{
+		cout << "Area of Rectangle: " << area() << endl;
+	}
+	~rectangle()
+	{
+	}
 };
-cylinder::cylinder(int a, int b, double r, double h) : circle(a, b, r)
+class triangle : public shape
 {
-	cout << "Cylinder Constructor Called!" << endl;
-	height = h;
-}
-double cylinder::getvolume(void)
+private:
+	double base, height;
+
+public:
+	triangle() : base(0), height(0)
+	{
+	}
+	void setvalues()
+	{
+		cout << "            Enter Values for Triangle              " << endl;
+		cout << "Enter Base: ";
+		cin >> base;
+		cout << "Enter Height: ";
+		cin >> height;
+	}
+	double area() override
+	{
+		return 0.5 * base * height;
+	}
+	void display() override
+	{
+		cout << "Area of Triangle: " << area() << endl;
+	}
+	~triangle()
+	{
+	}
+};
+int main()
 {
-	return 3.14 * radius * radius * height;
-}
-void cylinder::display(void)
-{
-	circle::display();
-	cout << "Height = " << height << endl;
-}
-int main(void)
-{
-	cylinder c(3, 4, 2.5, 3.7);
+	shape *ptr;
+	circle cir;
+	ptr = &cir;
+	ptr->setvalues();
+	ptr->area();
+	ptr->display();
+	rectangle Rect;
+	ptr = &Rect;
+	ptr->setvalues();
+	ptr->area();
+	ptr->display();
+	triangle triang;
+	ptr = &triang;
+	ptr->setvalues();
+	ptr->area();
+	ptr->display();
 	return 0;
 }
